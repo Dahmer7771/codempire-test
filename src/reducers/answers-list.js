@@ -2,18 +2,40 @@ const updateAnswersList = (state, action) => {
     const {
         questionId,
         value,
+        answerType,
     } = action.payload;
-    const answer = state.answersList.answers.find(({ id }) => id === questionId);
-    const idx = state.answersList.answers.indexOf(answer);
+    const currentAnswer = state.answersList.answers.find(({ id }) => id === questionId);
+    const idx = state.answersList.answers.indexOf(currentAnswer);
+    let newValue = value;
+
+    if (answerType === "multi") {
+        const currentAnswerIndex = currentAnswer.answer.indexOf(value);
+        if (currentAnswerIndex > -1) {
+            newValue = [
+                ...currentAnswer.answer.slice(0, currentAnswerIndex),
+                ...currentAnswer.answer.slice(currentAnswerIndex + 1),
+            ];
+        } else {
+            newValue = [
+                ...currentAnswer.answer,
+                value,
+            ];
+        }
+    }
 
     return [
         ...state.answersList.answers.slice(0, idx),
         {
             id: questionId,
-            answer: value,
+            answer: newValue,
         },
         ...state.answersList.answers.slice(idx + 1),
     ];
+};
+
+const getAnswersList = (state) => {
+    console.log(state);
+    return state.answersList;
 };
 
 const answersList = (state, action) => {
@@ -34,6 +56,8 @@ const answersList = (state, action) => {
             ...state.answersList,
             answers: updateAnswersList(state, action),
         };
+    case "GET_ANSWERS_LIST":
+        return getAnswersList(state);
     default:
         return state.answersList;
     }

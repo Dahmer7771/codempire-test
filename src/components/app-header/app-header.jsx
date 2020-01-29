@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { connect } from "react-redux";
+import { getAnswersList as getAnswersListAction } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AppHeader = () => {
+const AppHeader = ({ getAnswersList }) => {
     const classes = useStyles();
 
     return (
@@ -32,11 +34,15 @@ const AppHeader = () => {
                     <Typography variant="h6" className={classes.title}>
                         Test
                     </Typography>
-                    <Button color="inherit">Retry</Button>
+                    <Button onClick={getAnswersList} color="inherit">Retry</Button>
                 </Toolbar>
             </AppBar>
         </div>
     );
 };
 
-export default AppHeader;
+const mapDispatchToProps = {
+    getAnswersList: getAnswersListAction,
+};
+
+export default connect(null, mapDispatchToProps)(AppHeader);

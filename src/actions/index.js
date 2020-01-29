@@ -17,12 +17,17 @@ const initAnswersList = (questions) => ({
     payload: questions,
 });
 
-const updateAnswersList = (questionId, value) => ({
+const updateAnswersList = (questionId, value, answerType = "single") => ({
     type: "UPDATE_ANSWERS_LIST",
     payload: {
         questionId,
         value,
+        answerType,
     },
+});
+
+const getAnswersList = () => ({
+    type: "GET_ANSWERS_LIST",
 });
 
 const fetchQuestions = (testService) => () => (dispatch) => {
@@ -45,4 +50,5 @@ export {
     questionsError,
     fetchQuestions,
     updateAnswersList,
+    getAnswersList,
 };
