@@ -30,6 +30,10 @@ const getAnswersList = () => ({
     type: "GET_ANSWERS_LIST",
 });
 
+const clearInputs = () => ({
+    type: "CLEAR_INPUTS",
+});
+
 const fetchQuestions = (testService) => () => (dispatch) => {
     dispatch(questionsRequest());
     testService.getQuestionsList()
@@ -38,8 +42,8 @@ const fetchQuestions = (testService) => () => (dispatch) => {
                 id: item.id,
                 answer: "",
             }));
-            dispatch(questionsLoad(data));
             dispatch(initAnswersList(answersListTemplate));
+            dispatch(questionsLoad(data));
         })
         .catch((error) => questionsError(error));
 };
@@ -51,4 +55,5 @@ export {
     fetchQuestions,
     updateAnswersList,
     getAnswersList,
+    clearInputs,
 };

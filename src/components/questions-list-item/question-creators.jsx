@@ -69,7 +69,6 @@ const createCheckboxQuestion = (
     classes,
 ) => {
     console.log(questionAnswer);
-
     return (
         <div className="questions-list-item">
             <FormControl component="fieldset" className={classes.formControl}>
@@ -80,6 +79,9 @@ const createCheckboxQuestion = (
                             key={option.id}
                             control={(
                                 <Checkbox
+                                    checked={
+                                        questionAnswer.answer.indexOf(option.id.toString()) > -1
+                                    }
                                     onChange={(e) => updateAnswersList(id, e.target.value, "multi")}
                                     value={option.id}
                                 />
@@ -99,33 +101,30 @@ const createSelectQuestion = (
     questionAnswer,
     updateAnswersList,
     classes,
-) => {
-    console.log(questionAnswer);
-    return (
-        <div className="questions-list-item">
-            <FormControl variant="outlined" className={classes.formControl}>
-                <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
-                <Select
-                    native
-                    value={questionAnswer ? questionAnswer.answer : ""}
-                    name={`question-${id}`}
-                    onChange={(e) => {
-                        updateAnswersList(id, e.target.value);
-                    }}
-                >
-                    <option disabled value="">
+) => (
+    <div className="questions-list-item">
+        <FormControl variant="outlined" className={classes.formControl}>
+            <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
+            <Select
+                native
+                value={questionAnswer ? questionAnswer.answer : ""}
+                name={`question-${id}`}
+                onChange={(e) => {
+                    updateAnswersList(id, e.target.value);
+                }}
+            >
+                <option disabled value="">
                         Select
+                </option>
+                {answerOptions.map((option) => (
+                    <option key={option.id} value={option.id}>
+                        {option.value}
                     </option>
-                    {answerOptions.map((option) => (
-                        <option key={option.id} value={option.id}>
-                            {option.value}
-                        </option>
-                    ))}
-                </Select>
-            </FormControl>
-        </div>
-    );
-};
+                ))}
+            </Select>
+        </FormControl>
+    </div>
+);
 
 export {
     createSelectQuestion,

@@ -38,6 +38,17 @@ const getAnswersList = (state) => {
     return state.answersList;
 };
 
+const clearInputs = (state) => {
+    const answersCopy = state.answersList.answers.map((answersListItem) => ({
+        id: answersListItem.id,
+        answer: "",
+    }));
+    return {
+        ...state.answersList,
+        answers: answersCopy,
+    };
+};
+
 const answersList = (state, action) => {
     if (state === undefined) {
         return {
@@ -58,6 +69,8 @@ const answersList = (state, action) => {
         };
     case "GET_ANSWERS_LIST":
         return getAnswersList(state);
+    case "CLEAR_INPUTS":
+        return clearInputs(state);
     default:
         return state.answersList;
     }
