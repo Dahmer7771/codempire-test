@@ -7,7 +7,10 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { connect } from "react-redux";
-import { clearInputs as clearInputsAction } from "../../actions";
+import {
+    getAnswersList as getAnswersListAction,
+    countResults as countResultsAction,
+} from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AppHeader = ({ clearInputs }) => {
+const AppHeader = ({ countResults }) => {
     const classes = useStyles();
 
     return (
@@ -34,7 +37,7 @@ const AppHeader = ({ clearInputs }) => {
                     <Typography variant="h6" className={classes.title}>
                         Test
                     </Typography>
-                    <Button onClick={clearInputs} color="inherit">Retry</Button>
+                    <Button onClick={countResults} color="inherit">Retry</Button>
                 </Toolbar>
             </AppBar>
         </div>
@@ -42,7 +45,8 @@ const AppHeader = ({ clearInputs }) => {
 };
 
 const mapDispatchToProps = {
-    clearInputs: clearInputsAction,
+    getAnswersList: getAnswersListAction,
+    countResults: countResultsAction,
 };
 
 export default connect(null, mapDispatchToProps)(AppHeader);

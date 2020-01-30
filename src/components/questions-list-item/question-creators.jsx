@@ -82,6 +82,7 @@ const createCheckboxQuestion = (
                                     checked={
                                         questionAnswer.answer.indexOf(option.id.toString()) > -1
                                     }
+                                    color="primary"
                                     onChange={(e) => updateAnswersList(id, e.target.value, "multi")}
                                     value={option.id}
                                 />

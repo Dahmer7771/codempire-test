@@ -38,6 +38,57 @@ const getAnswersList = (state) => {
     return state.answersList;
 };
 
+const compareAnswers = (type, rightAnswer, userAnswer) => {
+    if (userAnswer === "") return false;
+
+    switch (type) {
+    case "string":
+        return rightAnswer.toLowerCase() === userAnswer.toLowerCase();
+    case "radio":
+    case "select":
+        return parseInt(rightAnswer, 10) === parseInt(userAnswer, 10);
+    case "checkbox":
+        if (rightAnswer.length !== userAnswer.length) return false;
+
+        let isRight = true;
+        rightAnswer.forEach((answersItem) => {
+            if (userAnswer.indexOf(answersItem.toString()) === -1) isRight = false;
+        });
+
+        return isRight;
+    default:
+        return false;
+    }
+};
+
+const countResults = (state) => {
+    const { answers } = state.answersList;
+    const questions = state.questionsList.questions.map((item) => ({
+        id: item.id,
+        question: item.question,
+        answer: item.answer,
+        type: item.type,
+    }));
+    const results = [];
+
+    questions.forEach((questionsItem) => {
+        const currentAnswer = answers.find((answersItem) => answersItem.id === questionsItem.id);
+        const isEquals = compareAnswers(
+            questionsItem.type,
+            questionsItem.answer,
+            currentAnswer.answer,
+        );
+        results.push({
+            id: questionsItem.id,
+            question: questionsItem.question,
+            userAnswer: currentAnswer.answer,
+            isRight: isEquals,
+        });
+    });
+
+    return state.answersList;
+};
+
 const clearInputs = (state) => {
     const answersCopy = state.answersList.answers.map((answersListItem) => ({
         id: answersListItem.id,
@@ -71,6 +122,8 @@ const answersList = (state, action) => {
         return getAnswersList(state);
     case "CLEAR_INPUTS":
         return clearInputs(state);
+    case "COUNT_RESULTS":
+        return countResults(state);
     default:
         return state.answersList;
     }

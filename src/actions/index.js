@@ -34,6 +34,10 @@ const clearInputs = () => ({
     type: "CLEAR_INPUTS",
 });
 
+const countResults = () => ({
+    type: "COUNT_RESULTS",
+});
+
 const fetchQuestions = (testService) => () => (dispatch) => {
     dispatch(questionsRequest());
     testService.getQuestionsList()
@@ -56,4 +60,5 @@ export {
     updateAnswersList,
     getAnswersList,
     clearInputs,
+    countResults,
 };
