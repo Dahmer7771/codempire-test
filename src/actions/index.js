@@ -56,8 +56,8 @@ const checkingInputs = () => ({
     type: "CHECKING_INPUTS",
 });
 
-const changeCurrentPage = (page) => ({
-    type: "CHANGE_PAGE",
+const allowShowAnswers = (page) => ({
+    type: "ALLOW_SHOW_ANSWERS",
     payload: page,
 });
 
@@ -70,5 +70,5 @@ export {
     getAnswersList,
     clearInputs,
     countResults,
-    changeCurrentPage,
+    allowShowAnswers,
 };

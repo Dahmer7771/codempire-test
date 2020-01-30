@@ -1,9 +1,9 @@
 import questionsList from "./questions-list";
 import answersList from "./answers-list";
-import currentPage from "./currentPage";
+import showResult from "./showResult";
 
 const rootReducer = (state, action) => ({
-    currentPage: currentPage(state, action),
+    isTestDone: showResult(state, action),
     questionsList: questionsList(state, action),
     answersList: answersList(state, action),
 });

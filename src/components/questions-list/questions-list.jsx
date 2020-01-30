@@ -7,10 +7,16 @@ import {
     Button,
     makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import {
+    Link,
+    useHistory,
+} from "react-router-dom";
 import withTestService from "../hoc/with-test-service";
 import QuestionsListItem from "../questions-list-item/questions-list-item";
-import { fetchQuestions as fetchQuestionsAction } from "../../actions";
+import {
+    fetchQuestions as fetchQuestionsAction,
+    allowShowAnswers as allowShowAnswersAction,
+} from "../../actions";
 import Spinner from "../spinner";
 
 const useStyles = makeStyles(() => ({
@@ -34,14 +40,21 @@ const renderQuestionsListItems = (questions, answers) => questions.map((item) =>
     return <QuestionsListItem key={id} questionAnswer={questionAnswer} {...item} />;
 });
 
+const showResultPage = (isTestDone, allowShowAnswers, history) => {
+    allowShowAnswers(true);
+    if (isTestDone) history.push("/result");
+};
+
 const QuestionsList = ({
-    fetchQuestions, questions, answers, loading, error,
+    fetchQuestions, questions, answers, loading, error, isTestDone, allowShowAnswers,
 }) => {
     const classes = useStyles();
+    const history = useHistory();
 
     useEffect(() => {
         fetchQuestions();
-    }, []);
+        allowShowAnswers(false);
+    }, [fetchQuestions, allowShowAnswers]);
 
     if (loading) return <Spinner />;
 
@@ -53,7 +66,12 @@ const QuestionsList = ({
                 {renderQuestionsListItems(questions, answers)}
                 <div className={classes.linkWrapper}>
                     <Link to="/result" className={classes.link}>
-                        <Button onClick={() => alert("CH")} className={classes.root} variant="contained" color="primary">
+                        <Button
+                            onClick={() => showResultPage(isTestDone, allowShowAnswers, history)}
+                            className={classes.root}
+                            variant="contained"
+                            color="primary"
+                        >
                             Завершить
                         </Button>
                     </Link>
@@ -64,9 +82,11 @@ const QuestionsList = ({
 };
 
 const mapStateToProps = ({
+    isTestDone,
     questionsList: { questions, loading, error },
     answersList: { answers, correctAnswers },
 }) => ({
+    isTestDone,
     questions,
     answers,
     correctAnswers,
@@ -76,6 +96,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch, { testService }) => bindActionCreators({
     fetchQuestions: fetchQuestionsAction(testService),
+    allowShowAnswers: allowShowAnswersAction,
 }, dispatch);
 
 export default withTestService()(
