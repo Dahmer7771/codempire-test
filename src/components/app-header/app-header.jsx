@@ -4,11 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import { connect } from "react-redux";
 import {
-    getAnswersList as getAnswersListAction,
     countResults as countResultsAction,
 } from "../../actions";
 
@@ -24,18 +21,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AppHeader = ({ countResults }) => {
+const AppHeader = ({ correctAnswers, countResults }) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         Test
+                    </Typography>
+                    <Typography variant="subtitle2">
+                        {`Правильных ответов: ${correctAnswers}`}
                     </Typography>
                     <Button onClick={countResults} color="inherit">Retry</Button>
                 </Toolbar>
@@ -44,9 +41,12 @@ const AppHeader = ({ countResults }) => {
     );
 };
 
+const mapStateToProps = ({ answersList: { correctAnswers } }) => ({
+    correctAnswers,
+});
+
 const mapDispatchToProps = {
-    getAnswersList: getAnswersListAction,
     countResults: countResultsAction,
 };
 
-export default connect(null, mapDispatchToProps)(AppHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

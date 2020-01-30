@@ -67,35 +67,32 @@ const createCheckboxQuestion = (
     questionAnswer,
     updateAnswersList,
     classes,
-) => {
-    console.log(questionAnswer);
-    return (
-        <div className="questions-list-item">
-            <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
-                <FormGroup>
-                    {answerOptions.map((option) => (
-                        <FormControlLabel
-                            key={option.id}
-                            control={(
-                                <Checkbox
-                                    checked={
-                                        questionAnswer.answer.indexOf(option.id.toString()) > -1
-                                    }
-                                    color="primary"
-                                    onChange={(e) => updateAnswersList(id, e.target.value, "multi")}
-                                    value={option.id}
-                                />
-                            )}
-                            label={option.value}
-                        />
-                    ))}
-                </FormGroup>
-                <FormHelperText>Правильных ответов несколько</FormHelperText>
-            </FormControl>
-        </div>
-    );
-};
+) => (
+    <div className="questions-list-item">
+        <FormControl component="fieldset" className={classes.formControl}>
+            <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
+            <FormGroup>
+                {answerOptions.map((option) => (
+                    <FormControlLabel
+                        key={option.id}
+                        control={(
+                            <Checkbox
+                                checked={
+                                    questionAnswer.answer.indexOf(option.id.toString()) > -1
+                                }
+                                color="primary"
+                                onChange={(e) => updateAnswersList(id, e.target.value, "multi")}
+                                value={option.id}
+                            />
+                        )}
+                        label={option.value}
+                    />
+                ))}
+            </FormGroup>
+            <FormHelperText>Правильных ответов несколько</FormHelperText>
+        </FormControl>
+    </div>
+);
 
 const createSelectQuestion = (
     { id, question, answerOptions },

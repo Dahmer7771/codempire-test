@@ -1,11 +1,23 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import "./questions-list.scss";
-import { Container } from "@material-ui/core";
 import { bindActionCreators } from "redux";
+import "./questions-list.scss";
+import {
+    Container,
+    Button,
+    makeStyles,
+} from "@material-ui/core";
 import withTestService from "../hoc/with-test-service";
 import QuestionsListItem from "../questions-list-item/questions-list-item";
 import { fetchQuestions as fetchQuestionsAction } from "../../actions";
+import Spinner from "../spinner";
+
+const useStyles = makeStyles(() => ({
+    root: {
+        display: "block",
+        margin: "0 auto",
+    },
+}));
 
 const renderQuestionsListItems = (questions, answers) => questions.map((item) => {
     const { id } = item;
@@ -16,11 +28,13 @@ const renderQuestionsListItems = (questions, answers) => questions.map((item) =>
 const QuestionsList = ({
     fetchQuestions, questions, answers, loading, error,
 }) => {
+    const classes = useStyles();
+
     useEffect(() => {
         fetchQuestions();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Spinner />;
 
     if (error) return <div>Error</div>;
 
@@ -28,6 +42,9 @@ const QuestionsList = ({
         <Container maxWidth="md">
             <form className="questions">
                 {renderQuestionsListItems(questions, answers)}
+                <Button className={classes.root} variant="contained" color="primary">
+                    Завершить
+                </Button>
             </form>
         </Container>
     );

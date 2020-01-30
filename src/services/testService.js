@@ -1,36 +1,32 @@
 export default class TestService {
     questionId = 1;
 
-    addStringQuestion = (title, question, answer) => ({
+    addStringQuestion = (question, answer) => ({
         id: this.questionId++,
         type: "string",
-        title,
         question,
         answer,
     });
 
-    addRadioQuestion = (title, question, answerOptions, answer) => ({
+    addRadioQuestion = (question, answerOptions, answer) => ({
         id: this.questionId++,
         type: "radio",
-        title,
         question,
         answerOptions,
         answer,
     });
 
-    addCheckboxQuestion = (title, question, answerOptions, answer) => ({
+    addCheckboxQuestion = (question, answerOptions, answer) => ({
         id: this.questionId++,
         type: "checkbox",
-        title,
         question,
         answerOptions,
         answer,
     });
 
-    addSelectQuestion = (title, question, answerOptions, answer) => ({
+    addSelectQuestion = (question, answerOptions, answer) => ({
         id: this.questionId++,
         type: "select",
-        title,
         question,
         answerOptions,
         answer,
@@ -38,22 +34,30 @@ export default class TestService {
 
     questions = [
         this.addStringQuestion(
-            "Custom string question",
             "Question string custom",
             "Custom answer",
         ),
         this.addRadioQuestion(
-            "Custom radio question",
-            "Question radio custom",
+            "Что обозначает формула H2O?",
             [
-                { id: 1, value: "var 1" },
-                { id: 2, value: "var 2" },
-                { id: 3, value: "var 3" },
+                { id: 1, value: "Гелий" },
+                { id: 2, value: "Кислород" },
+                { id: 3, value: "Воду" },
+                { id: 4, value: "Аммиак" },
+            ],
+            3,
+        ),
+        this.addRadioQuestion(
+            "Сколько океанов на нашей планете?",
+            [
+                { id: 1, value: "Гелий" },
+                { id: 2, value: "Кислород" },
+                { id: 3, value: "Воду" },
+                { id: 4, value: "Аммиак" },
             ],
             3,
         ),
         this.addCheckboxQuestion(
-            "Custom checkbox question",
             "Question checkbox custom",
             [
                 { id: 1, value: "var 1" },
@@ -65,7 +69,6 @@ export default class TestService {
             ],
         ),
         this.addSelectQuestion(
-            "Custom checkbox question",
             "Question checkbox custom",
             [
                 { id: 1, value: "var 1" },

@@ -39,7 +39,7 @@ const getAnswersList = (state) => {
 };
 
 const compareAnswers = (type, rightAnswer, userAnswer) => {
-    if (userAnswer === "") return false;
+    if (userAnswer === "" || userAnswer === []) return false;
 
     switch (type) {
     case "string":
@@ -86,7 +86,12 @@ const countResults = (state) => {
         });
     });
 
-    return state.answersList;
+    const correctAnswersCount = results.filter((item) => item.isRight).length;
+
+    return {
+        ...state.answersList,
+        correctAnswers: correctAnswersCount,
+    };
 };
 
 const clearInputs = (state) => {
@@ -104,6 +109,7 @@ const answersList = (state, action) => {
     if (state === undefined) {
         return {
             answers: [],
+            correctAnswers: 0,
         };
     }
 
