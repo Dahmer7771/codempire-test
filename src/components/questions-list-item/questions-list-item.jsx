@@ -59,10 +59,6 @@ const QuestionsListItem = (props) => {
     );
 };
 
-// const mapStateToProps = () => ({
-//
-// });
-
 const mapDispatchToProps = {
     updateAnswersList: updateAnswersListAction,
 };

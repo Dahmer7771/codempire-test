@@ -34,8 +34,8 @@ export default class TestService {
 
     questions = [
         this.addStringQuestion(
-            "Question string custom",
-            "Custom answer",
+            "Какой элемент периодической системы химических элементов обозначается как Ag?",
+            "Аргон",
         ),
         this.addRadioQuestion(
             "Что обозначает формула H2O?",
@@ -50,32 +50,33 @@ export default class TestService {
         this.addRadioQuestion(
             "Сколько океанов на нашей планете?",
             [
-                { id: 1, value: "Гелий" },
-                { id: 2, value: "Кислород" },
-                { id: 3, value: "Воду" },
-                { id: 4, value: "Аммиак" },
+                { id: 1, value: "3" },
+                { id: 2, value: "4" },
+                { id: 3, value: "5" },
+                { id: 4, value: "6" },
             ],
             3,
         ),
         this.addCheckboxQuestion(
-            "Question checkbox custom",
+            "Какие две самые длинные реки в мире?",
             [
-                { id: 1, value: "var 1" },
-                { id: 2, value: "var 2" },
-                { id: 3, value: "var 3" },
+                { id: 1, value: "Амазонка" },
+                { id: 2, value: "Миссисипи" },
+                { id: 3, value: "Янцзы" },
+                { id: 4, value: "Нил" },
             ],
             [
-                2, 3,
+                1, 4,
             ],
         ),
         this.addSelectQuestion(
-            "Question checkbox custom",
+            "Какое число обозначается римскими цифрами LXXVII",
             [
-                { id: 1, value: "var 1" },
-                { id: 2, value: "var 2" },
-                { id: 3, value: "var 3" },
+                { id: 1, value: "127" },
+                { id: 2, value: "97" },
+                { id: 3, value: "77" },
             ],
-            1,
+            3,
         ),
     ];
 

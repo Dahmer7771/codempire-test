@@ -7,6 +7,7 @@ import {
     Button,
     makeStyles,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import withTestService from "../hoc/with-test-service";
 import QuestionsListItem from "../questions-list-item/questions-list-item";
 import { fetchQuestions as fetchQuestionsAction } from "../../actions";
@@ -16,6 +17,14 @@ const useStyles = makeStyles(() => ({
     root: {
         display: "block",
         margin: "0 auto",
+    },
+    link: {
+        textDecoration: "none",
+        color: "inherit",
+    },
+    linkWrapper: {
+        display: "flex",
+        justifyContent: "center",
     },
 }));
 
@@ -42,9 +51,13 @@ const QuestionsList = ({
         <Container maxWidth="md">
             <form className="questions">
                 {renderQuestionsListItems(questions, answers)}
-                <Button className={classes.root} variant="contained" color="primary">
-                    Завершить
-                </Button>
+                <div className={classes.linkWrapper}>
+                    <Link to="/result" className={classes.link}>
+                        <Button onClick={() => alert("CH")} className={classes.root} variant="contained" color="primary">
+                            Завершить
+                        </Button>
+                    </Link>
+                </div>
             </form>
         </Container>
     );
@@ -52,10 +65,11 @@ const QuestionsList = ({
 
 const mapStateToProps = ({
     questionsList: { questions, loading, error },
-    answersList: { answers },
+    answersList: { answers, correctAnswers },
 }) => ({
     questions,
     answers,
+    correctAnswers,
     loading,
     error,
 });

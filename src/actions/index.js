@@ -52,6 +52,15 @@ const fetchQuestions = (testService) => () => (dispatch) => {
         .catch((error) => questionsError(error));
 };
 
+const checkingInputs = () => ({
+    type: "CHECKING_INPUTS",
+});
+
+const changeCurrentPage = (page) => ({
+    type: "CHANGE_PAGE",
+    payload: page,
+});
+
 export {
     questionsRequest,
     questionsLoad,
@@ -61,4 +70,5 @@ export {
     getAnswersList,
     clearInputs,
     countResults,
+    changeCurrentPage,
 };
