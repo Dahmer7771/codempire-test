@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: "block",
         margin: "0 auto",
+        marginBottom: theme.spacing(2),
+    },
+    title: {
+        marginTop: theme.spacing(2),
     },
     link: {
         textDecoration: "none",
@@ -71,7 +75,6 @@ const showResultPage = (
     getAnswersList,
     isFieldsFilled,
 ) => {
-    getAnswersList();
     if (isFieldsFilled) {
         allowShowAnswers(true);
         history.push("/result");
@@ -108,7 +111,7 @@ const QuestionsList = ({
 
     return (
         <Container maxWidth="md">
-            <Typography variant="h4" component="h6">
+            <Typography className={classes.title} variant="h4" component="h6">
                 Дайте ответы на вопросы
             </Typography>
             <form className="questions">

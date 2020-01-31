@@ -31,8 +31,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AppHeader = ({ correctAnswers, clearInputs }) => {
+const AppHeader = ({ isTestDone, clearInputs }) => {
     const classes = useStyles();
+    const buttonStartAgain = isTestDone
+        ? null
+        : <Button onClick={clearInputs} color="inherit">Начать сначала</Button>;
 
     return (
         <div className={classes.root}>
@@ -45,15 +48,16 @@ const AppHeader = ({ correctAnswers, clearInputs }) => {
                             </Link>
                         </div>
                     </Typography>
-                    <Button onClick={clearInputs} color="inherit">Начать сначала</Button>
+                    {buttonStartAgain}
                 </Toolbar>
             </AppBar>
         </div>
     );
 };
 
-const mapStateToProps = ({ answersList: { correctAnswers } }) => ({
+const mapStateToProps = ({ answersList: { correctAnswers }, isTestDone }) => ({
     correctAnswers,
+    isTestDone,
 });
 
 const mapDispatchToProps = {
