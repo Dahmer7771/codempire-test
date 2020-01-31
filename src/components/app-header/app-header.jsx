@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./app-header.scss";
 import { connect } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {
     clearInputs as clearInputsAction,
+    checkIfDataIsEntered as checkIfDataIsEnteredAction,
 } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,11 +32,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AppHeader = ({ isTestDone, clearInputs }) => {
+const AppHeader = ({ isTestDone, clearInputs, checkIfDataIsEntered }) => {
     const classes = useStyles();
     const buttonStartAgain = isTestDone
         ? null
-        : <Button onClick={clearInputs} color="inherit">Начать сначала</Button>;
+        : (
+            <Button
+                onClick={() => {
+                    clearInputs();
+                    checkIfDataIsEntered();
+                }}
+                color="inherit"
+            >
+                Начать сначала
+            </Button>
+        );
+
+    useEffect(() => {
+        checkIfDataIsEntered();
+    }, [checkIfDataIsEntered]);
+
 
     return (
         <div className={classes.root}>
@@ -62,6 +78,7 @@ const mapStateToProps = ({ answersList: { correctAnswers }, isTestDone }) => ({
 
 const mapDispatchToProps = {
     clearInputs: clearInputsAction,
+    checkIfDataIsEntered: checkIfDataIsEnteredAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

@@ -42,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         position: "absolute",
-        maxWidth: 400,
-        width: "90%",
+        maxWidth: 310,
         backgroundColor: theme.palette.background.paper,
         border: "2px solid #000",
         boxShadow: theme.shadows[5],
@@ -75,6 +74,7 @@ const showResultPage = (
     getAnswersList,
     isFieldsFilled,
 ) => {
+    getAnswersList();
     if (isFieldsFilled) {
         allowShowAnswers(true);
         history.push("/result");

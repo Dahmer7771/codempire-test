@@ -103,6 +103,7 @@ const clearInputs = (state) => {
         id: answersListItem.id,
         answer: "",
     }));
+    sessionStorage.setItem("CODEMPIRE_USER_ANSWERS", JSON.stringify(answersCopy));
     return {
         ...state.answersList,
         answers: answersCopy,
