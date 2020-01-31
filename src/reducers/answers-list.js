@@ -23,7 +23,7 @@ const updateAnswersList = (state, action) => {
         }
     }
 
-    return [
+    const answers = [
         ...state.answersList.answers.slice(0, idx),
         {
             id: questionId,
@@ -31,6 +31,10 @@ const updateAnswersList = (state, action) => {
         },
         ...state.answersList.answers.slice(idx + 1),
     ];
+
+    sessionStorage.setItem("CODEMPIRE_USER_ANSWERS", JSON.stringify(answers));
+
+    return answers;
 };
 
 const getAnswersList = (state) => {

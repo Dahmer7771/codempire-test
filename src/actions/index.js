@@ -54,10 +54,11 @@ const fetchQuestions = (testService) => () => (dispatch) => {
     dispatch(questionsRequest());
     testService.getQuestionsList()
         .then((data) => {
-            const answersListTemplate = data.map((item) => ({
+            const answersListTemplate = JSON.parse(sessionStorage.getItem("CODEMPIRE_USER_ANSWERS")) || data.map((item) => ({
                 id: item.id,
                 answer: "",
             }));
+            sessionStorage.setItem("CODEMPIRE_USER_ANSWERS", JSON.stringify(answersListTemplate));
             dispatch(initAnswersList(answersListTemplate));
             dispatch(questionsLoad(data));
         })
