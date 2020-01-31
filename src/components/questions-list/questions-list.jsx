@@ -5,7 +5,6 @@ import "./questions-list.scss";
 import {
     Container,
     Button,
-    Modal,
     Typography,
     makeStyles,
 } from "@material-ui/core";
@@ -22,6 +21,7 @@ import {
     getAnswersList as getAnswersListAction,
 } from "../../actions";
 import Spinner from "../spinner";
+import ModalWindow from "../modal-window";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,24 +39,6 @@ const useStyles = makeStyles((theme) => ({
     linkWrapper: {
         display: "flex",
         justifyContent: "center",
-    },
-    paper: {
-        position: "absolute",
-        maxWidth: 310,
-        backgroundColor: theme.palette.background.paper,
-        border: "2px solid #000",
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        top: "50%",
-        left: "50%",
-        transform: `translate(-50%, -50%)`,
-    },
-    buttonsContainer: {
-        display: "flex",
-        justifyContent: "flex-end",
-    },
-    button: {
-        margin: theme.spacing(0, 1),
     },
 }));
 
@@ -116,42 +98,12 @@ const QuestionsList = ({
             </Typography>
             <form className="questions">
                 {renderQuestionsListItems(questions, answers)}
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={isModalWindowOpen}
-                    onClose={() => closeModalWindow()}
-                >
-                    <div className={classes.paper}>
-                        <h2 id="simple-modal-title">Предупреждение</h2>
-                        <p id="simple-modal-description">
-                            Каждый не отвеченный ответ считается неправильным.
-                            Вы уверены что хотите продолжить?
-                        </p>
-                        <div className={classes.buttonsContainer}>
-                            <Button
-                                className={classes.button}
-                                variant="outlined"
-                                color="primary"
-                                onClick={() => {
-                                    closeModalWindow();
-                                    allowShowAnswers(true);
-                                    history.push("/result");
-                                }}
-                            >
-                                Да
-                            </Button>
-                            <Button
-                                className={classes.button}
-                                variant="outlined"
-                                color="secondary"
-                                onClick={closeModalWindow}
-                            >
-                                Отмена
-                            </Button>
-                        </div>
-                    </div>
-                </Modal>
+                <ModalWindow
+                    isModalWindowOpen={isModalWindowOpen}
+                    allowShowAnswers={allowShowAnswers}
+                    closeModalWindow={closeModalWindow}
+                    history={history}
+                />
                 <Button
                     onClick={() => showResultPage(
                         isTestDone,
