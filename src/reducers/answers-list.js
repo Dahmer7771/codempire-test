@@ -37,11 +37,6 @@ const updateAnswersList = (state, action) => {
     return answers;
 };
 
-const getAnswersList = (state) => {
-    console.log(state);
-    return state.answersList;
-};
-
 const compareAnswers = (type, rightAnswer, userAnswer) => {
     if (userAnswer === "" || userAnswer === []) return false;
 
@@ -129,8 +124,6 @@ const answersList = (state, action) => {
             ...state.answersList,
             answers: updateAnswersList(state, action),
         };
-    case "GET_ANSWERS_LIST":
-        return getAnswersList(state);
     case "CLEAR_INPUTS":
         return clearInputs(state);
     case "COUNT_RESULTS":

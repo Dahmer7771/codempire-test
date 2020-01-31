@@ -18,7 +18,6 @@ import {
     allowShowAnswers as allowShowAnswersAction,
     openModalWindow as openModalWindowAction,
     closeModalWindow as closeModalWindowAction,
-    getAnswersList as getAnswersListAction,
 } from "../../actions";
 import Spinner from "../spinner";
 import ModalWindow from "../modal-window";
@@ -53,10 +52,8 @@ const showResultPage = (
     allowShowAnswers,
     history,
     openModalWindow,
-    getAnswersList,
     isFieldsFilled,
 ) => {
-    getAnswersList();
     if (isFieldsFilled) {
         allowShowAnswers(true);
         history.push("/result");
@@ -76,7 +73,6 @@ const QuestionsList = ({
     openModalWindow,
     closeModalWindow,
     isModalWindowOpen,
-    getAnswersList,
     isFieldsFilled,
 }) => {
     const classes = useStyles();
@@ -110,7 +106,6 @@ const QuestionsList = ({
                         allowShowAnswers,
                         history,
                         openModalWindow,
-                        getAnswersList,
                         isFieldsFilled,
                     )}
                     className={classes.root}
@@ -146,7 +141,6 @@ const mapDispatchToProps = (dispatch, { testService }) => bindActionCreators({
     allowShowAnswers: allowShowAnswersAction,
     openModalWindow: openModalWindowAction,
     closeModalWindow: closeModalWindowAction,
-    getAnswersList: getAnswersListAction,
 }, dispatch);
 
 export default withTestService()(

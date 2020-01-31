@@ -26,10 +26,6 @@ const updateAnswersList = (questionId, value, answerType = "single") => ({
     },
 });
 
-const getAnswersList = () => ({
-    type: "GET_ANSWERS_LIST",
-});
-
 const clearInputs = () => ({
     type: "CLEAR_INPUTS",
 });
@@ -76,7 +72,6 @@ export {
     questionsError,
     fetchQuestions,
     updateAnswersList,
-    getAnswersList,
     clearInputs,
     countResults,
     allowShowAnswers,
