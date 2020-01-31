@@ -1,4 +1,4 @@
-const showResult = (state, action) => {
+const isTestDone = (state, action) => {
     if (state === undefined) {
         return false;
     }
@@ -7,8 +7,8 @@ const showResult = (state, action) => {
     case "ALLOW_SHOW_ANSWERS":
         return action.payload;
     default:
-        return state.showResult;
+        return state.isTestDone;
     }
 };
 
-export default showResult;
+export default isTestDone;

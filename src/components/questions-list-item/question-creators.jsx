@@ -17,6 +17,7 @@ const createStringQuestion = (
     questionAnswer,
     updateAnswersList,
     classes,
+    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl className={classes.formControl} fullWidth variant="outlined">
@@ -26,6 +27,7 @@ const createStringQuestion = (
                 name={`question-${id}`}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
+                    checkIfDataIsEntered();
                 }}
             />
         </FormControl>
@@ -37,6 +39,7 @@ const createRadioQuestion = (
     questionAnswer,
     updateAnswersList,
     classes,
+    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl component="fieldset" className={classes.formControl}>
@@ -47,6 +50,7 @@ const createRadioQuestion = (
                 value={questionAnswer ? parseInt(questionAnswer.answer, 10) : ""}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
+                    checkIfDataIsEntered();
                 }}
             >
                 {answerOptions.map((option) => (
@@ -67,6 +71,7 @@ const createCheckboxQuestion = (
     questionAnswer,
     updateAnswersList,
     classes,
+    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl component="fieldset" className={classes.formControl}>
@@ -81,7 +86,10 @@ const createCheckboxQuestion = (
                                     questionAnswer.answer.indexOf(option.id.toString()) > -1
                                 }
                                 color="primary"
-                                onChange={(e) => updateAnswersList(id, e.target.value, "multi")}
+                                onChange={(e) => {
+                                    updateAnswersList(id, e.target.value, "multi");
+                                    checkIfDataIsEntered();
+                                }}
                                 value={option.id}
                             />
                         )}
@@ -99,6 +107,7 @@ const createSelectQuestion = (
     questionAnswer,
     updateAnswersList,
     classes,
+    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl variant="outlined" className={classes.formControl}>
@@ -109,6 +118,7 @@ const createSelectQuestion = (
                 name={`question-${id}`}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
+                    checkIfDataIsEntered();
                 }}
             >
                 <option disabled value="">

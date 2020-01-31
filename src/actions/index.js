@@ -38,6 +38,18 @@ const countResults = () => ({
     type: "COUNT_RESULTS",
 });
 
+const checkIfDataIsEntered = () => ({
+    type: "CHECK_IF_DATA_IS_ENTERED",
+});
+
+const openModalWindow = () => ({
+    type: "OPEN_MODAL_WINDOW",
+});
+
+const closeModalWindow = () => ({
+    type: "CLOSE_MODAL_WINDOW",
+});
+
 const fetchQuestions = (testService) => () => (dispatch) => {
     dispatch(questionsRequest());
     testService.getQuestionsList()
@@ -51,10 +63,6 @@ const fetchQuestions = (testService) => () => (dispatch) => {
         })
         .catch((error) => questionsError(error));
 };
-
-const checkingInputs = () => ({
-    type: "CHECKING_INPUTS",
-});
 
 const allowShowAnswers = (page) => ({
     type: "ALLOW_SHOW_ANSWERS",
@@ -71,4 +79,7 @@ export {
     clearInputs,
     countResults,
     allowShowAnswers,
+    checkIfDataIsEntered,
+    openModalWindow,
+    closeModalWindow,
 };

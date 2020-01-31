@@ -2,7 +2,10 @@ import { connect } from "react-redux";
 import {
     makeStyles,
 } from "@material-ui/core";
-import { updateAnswersList as updateAnswersListAction } from "../../actions";
+import {
+    updateAnswersList as updateAnswersListAction,
+    checkIfDataIsEntered as checkIfDataIsEnteredAction,
+} from "../../actions";
 import {
     createStringQuestion,
     createRadioQuestion,
@@ -26,16 +29,41 @@ const createQuestionOfGivenType = (
     questionAnswer,
     updateAnswersList,
     classes,
+    checkIfDataIsEntered,
 ) => {
     switch (type) {
     case "string":
-        return createStringQuestion(questionInfo, questionAnswer, updateAnswersList, classes);
+        return createStringQuestion(
+            questionInfo,
+            questionAnswer,
+            updateAnswersList,
+            classes,
+            checkIfDataIsEntered,
+        );
     case "radio":
-        return createRadioQuestion(questionInfo, questionAnswer, updateAnswersList, classes);
+        return createRadioQuestion(
+            questionInfo,
+            questionAnswer,
+            updateAnswersList,
+            classes,
+            checkIfDataIsEntered,
+        );
     case "checkbox":
-        return createCheckboxQuestion(questionInfo, questionAnswer, updateAnswersList, classes);
+        return createCheckboxQuestion(
+            questionInfo,
+            questionAnswer,
+            updateAnswersList,
+            classes,
+            checkIfDataIsEntered,
+        );
     case "select":
-        return createSelectQuestion(questionInfo, questionAnswer, updateAnswersList, classes);
+        return createSelectQuestion(
+            questionInfo,
+            questionAnswer,
+            updateAnswersList,
+            classes,
+            checkIfDataIsEntered,
+        );
     default:
         return null;
     }
@@ -46,6 +74,7 @@ const QuestionsListItem = (props) => {
         type,
         questionAnswer,
         updateAnswersList,
+        checkIfDataIsEntered,
         ...questionInfo
     } = props;
     const classes = useStyles();
@@ -56,11 +85,13 @@ const QuestionsListItem = (props) => {
         questionAnswer,
         updateAnswersList,
         classes,
+        checkIfDataIsEntered,
     );
 };
 
 const mapDispatchToProps = {
     updateAnswersList: updateAnswersListAction,
+    checkIfDataIsEntered: checkIfDataIsEnteredAction,
 };
 
 export default connect(null, mapDispatchToProps)(QuestionsListItem);

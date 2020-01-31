@@ -12,9 +12,10 @@ const ResultPage = ({
     isTestDone,
 }) => {
     useEffect(() => {
-        if (!isTestDone) return <Redirect to="/" />;
         countResults();
-    }, []);
+    }, [countResults]);
+
+    if (!isTestDone) return <Redirect to="/" />;
 
     return (
         <Container maxWidth="md">
