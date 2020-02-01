@@ -18,6 +18,7 @@ import {
     allowShowAnswers as allowShowAnswersAction,
     openModalWindow as openModalWindowAction,
     closeModalWindow as closeModalWindowAction,
+    checkIfDataIsEntered as checkIfDataIsEnteredAction,
 } from "../../actions";
 import Spinner from "../spinner";
 import ModalWindow from "../modal-window";
@@ -53,7 +54,9 @@ const showResultPage = (
     history,
     openModalWindow,
     isFieldsFilled,
+    checkIfDataIsEntered,
 ) => {
+    checkIfDataIsEntered();
     if (isFieldsFilled) {
         allowShowAnswers(true);
         history.push("/result");
@@ -74,6 +77,7 @@ const QuestionsList = ({
     closeModalWindow,
     isModalWindowOpen,
     isFieldsFilled,
+    checkIfDataIsEntered,
 }) => {
     const classes = useStyles();
     const history = useHistory();
@@ -107,6 +111,7 @@ const QuestionsList = ({
                         history,
                         openModalWindow,
                         isFieldsFilled,
+                        checkIfDataIsEntered,
                     )}
                     className={classes.root}
                     variant="contained"
@@ -141,6 +146,7 @@ const mapDispatchToProps = (dispatch, { testService }) => bindActionCreators({
     allowShowAnswers: allowShowAnswersAction,
     openModalWindow: openModalWindowAction,
     closeModalWindow: closeModalWindowAction,
+    checkIfDataIsEntered: checkIfDataIsEnteredAction,
 }, dispatch);
 
 export default withTestService()(

@@ -12,9 +12,9 @@ const questionsError = (error) => ({
     payload: error,
 });
 
-const initAnswersList = (questions) => ({
+const initAnswersList = (answers) => ({
     type: "INIT_ANSWERS_LIST",
-    payload: questions,
+    payload: answers,
 });
 
 const updateAnswersList = (questionId, value, answerType = "single") => ({
@@ -49,6 +49,7 @@ const closeModalWindow = () => ({
 const fetchQuestions = (testService) => () => (dispatch) => {
     dispatch(questionsRequest());
     testService.getQuestionsList()
+        .then((data) => data.json())
         .then((data) => {
             const answersListTemplate = JSON.parse(sessionStorage.getItem("CODEMPIRE_USER_ANSWERS")) || data.map((item) => ({
                 id: item.id,

@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import App from "./components/app";
 import { TestServiceProvider } from "./components/test-service-context/test-service-context";
-import TestService from "./services/testService";
+import TestServiceServer from "./services/testServiceServer";
 import store from "./store";
 
-const testService = new TestService();
+const testService = new TestServiceServer();
 
 ReactDOM.render(
     <Provider store={store}>

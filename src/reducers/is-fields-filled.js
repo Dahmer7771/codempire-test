@@ -1,4 +1,5 @@
 const checkIfDataIsEntered = (state) => {
+    if (state.answersList.answers.length === 0) return false;
     const emptyFields = state.answersList.answers.filter((item) => {
         if (Array.isArray(item.answer) && item.answer.length === 0) return true;
         if (item.answer === "") return true;
