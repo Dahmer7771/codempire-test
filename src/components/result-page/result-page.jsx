@@ -7,14 +7,54 @@ import {
     makeStyles,
 } from "@material-ui/core";
 import { countResults as countResultsAction } from "../../actions";
+import {
+    renderCheckboxAnswer,
+    renderRadioAnswer,
+    renderSelectAnswer,
+    renderStringAnswer,
+} from "./render-right-answer";
 
 const useStyles = makeStyles((theme) => ({
     title: {
         marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
+    result: {
+        marginBottom: theme.spacing(4),
+    },
+    answersListItem: {
+        marginBottom: theme.spacing(3),
     },
 }));
 
+const renderAnswerOfGivenQuestion = (questionListItem, classes) => {
+    switch (questionListItem.type) {
+    case "string":
+        return renderStringAnswer(questionListItem, classes);
+    case "radio":
+        return renderRadioAnswer(questionListItem, classes);
+    case "select":
+        return renderSelectAnswer(questionListItem, classes);
+    case "checkbox":
+        return renderCheckboxAnswer(questionListItem, classes);
+    default:
+        return null;
+    }
+};
+
+const renderRightAnswers = (questions, classes) => (
+    <>
+        <Typography className={classes.title} variant="h5" component="h6">
+            Правильные ответы
+        </Typography>
+        {questions.map(
+            (questionListItem) => renderAnswerOfGivenQuestion(questionListItem, classes),
+        )}
+    </>
+);
+
 const ResultPage = ({
+    questions,
     answers,
     correctAnswers,
     countResults,
@@ -31,16 +71,22 @@ const ResultPage = ({
     return (
         <Container maxWidth="md">
             <Typography className={classes.title} variant="h4" component="h6">
-                Ответы
+                Результат
             </Typography>
-            <Typography variant="subtitle1">
+            <Typography className={classes.result} variant="subtitle1">
                 {`Вы ответили правильно на ${correctAnswers} вопросов из ${answers.length}`}
             </Typography>
+            {renderRightAnswers(questions, classes)}
         </Container>
     );
 };
 
-const mapStateToProps = ({ answersList: { answers, correctAnswers }, isTestDone }) => ({
+const mapStateToProps = ({
+    questionsList: { questions },
+    answersList: { answers, correctAnswers },
+    isTestDone,
+}) => ({
+    questions,
     answers,
     correctAnswers,
     isTestDone,
