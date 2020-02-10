@@ -25,64 +25,29 @@ const useStyles = makeStyles((theme) => ({
 
 const createQuestionOfGivenType = (
     type,
-    questionInfo,
-    questionAnswer,
-    updateAnswersList,
+    rest,
     classes,
-    checkIfDataIsEntered,
 ) => {
     switch (type) {
     case "string":
-        return createStringQuestion(
-            questionInfo,
-            questionAnswer,
-            updateAnswersList,
-            classes,
-            checkIfDataIsEntered,
-        );
+        return createStringQuestion(rest, classes);
     case "radio":
-        return createRadioQuestion(
-            questionInfo,
-            questionAnswer,
-            updateAnswersList,
-            classes,
-            checkIfDataIsEntered,
-        );
+        return createRadioQuestion(rest, classes);
     case "checkbox":
-        return createCheckboxQuestion(
-            questionInfo,
-            questionAnswer,
-            updateAnswersList,
-            classes,
-            checkIfDataIsEntered,
-        );
+        return createCheckboxQuestion(rest, classes);
     case "select":
-        return createSelectQuestion(
-            questionInfo,
-            questionAnswer,
-            updateAnswersList,
-            classes,
-            checkIfDataIsEntered,
-        );
+        return createSelectQuestion(rest, classes);
     default:
         return null;
     }
 };
 
-const QuestionsListItem = (props) => {
-    const {
-        type,
-        updateAnswersList,
-        checkIfDataIsEntered,
-        ...questionInfo
-    } = props;
+const QuestionsListItem = ({ type, ...rest }) => {
     const classes = useStyles();
     return createQuestionOfGivenType(
         type,
-        questionInfo,
-        updateAnswersList,
+        rest,
         classes,
-        checkIfDataIsEntered,
     );
 };
 

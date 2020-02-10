@@ -13,10 +13,10 @@ import {
 import React from "react";
 
 const createStringQuestion = (
-    { id, question, userAnswer },
-    updateAnswersList,
+    {
+        id, question, userAnswer, updateAnswersList, checkIfDataIsEntered,
+    },
     classes,
-    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl className={classes.formControl} fullWidth variant="outlined">
@@ -35,11 +35,9 @@ const createStringQuestion = (
 
 const createRadioQuestion = (
     {
-        id, question, answerOptions, userAnswer,
+        id, question, answerOptions, userAnswer, updateAnswersList, checkIfDataIsEntered,
     },
-    updateAnswersList,
     classes,
-    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl component="fieldset" className={classes.formControl}>
@@ -68,11 +66,9 @@ const createRadioQuestion = (
 
 const createCheckboxQuestion = (
     {
-        id, question, answerOptions, userAnswer,
+        id, question, answerOptions, userAnswer, updateAnswersList, checkIfDataIsEntered,
     },
-    updateAnswersList,
     classes,
-    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl component="fieldset" className={classes.formControl}>
@@ -105,11 +101,9 @@ const createCheckboxQuestion = (
 
 const createSelectQuestion = (
     {
-        id, question, answerOptions, userAnswer,
+        id, question, answerOptions, userAnswer, updateAnswersList, checkIfDataIsEntered,
     },
-    updateAnswersList,
     classes,
-    checkIfDataIsEntered,
 ) => (
     <div className="questions-list-item">
         <FormControl variant="outlined" className={classes.formControl}>
