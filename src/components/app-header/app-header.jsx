@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import "./app-header.scss";
 import { connect } from "react-redux";
-import {
-    Link,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -32,7 +30,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AppHeader = ({ isTestDone, clearInputs, checkIfDataIsEntered }) => {
+const AppHeader = ({ classes, buttonStartAgain }) => (
+    <div className={classes.root}>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" className={classes.title}>
+                    <div className={classes.appHeaderLink}>
+                        <Link to="/">
+                                Test
+                        </Link>
+                    </div>
+                </Typography>
+                {buttonStartAgain}
+            </Toolbar>
+        </AppBar>
+    </div>
+);
+
+const AppHeaderContainer = ({ isTestDone, clearInputs, checkIfDataIsEntered }) => {
     const classes = useStyles();
     const buttonStartAgain = isTestDone
         ? null
@@ -54,24 +69,11 @@ const AppHeader = ({ isTestDone, clearInputs, checkIfDataIsEntered }) => {
 
 
     return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        <div className={classes.appHeaderLink}>
-                            <Link to="/">
-                                Test
-                            </Link>
-                        </div>
-                    </Typography>
-                    {buttonStartAgain}
-                </Toolbar>
-            </AppBar>
-        </div>
+        <AppHeader classes={classes} buttonStartAgain={buttonStartAgain} />
     );
 };
 
-const mapStateToProps = ({ answersList: { correctAnswers }, isTestDone }) => ({
+const mapStateToProps = ({ correctAnswers, isTestDone }) => ({
     correctAnswers,
     isTestDone,
 });
@@ -81,4 +83,4 @@ const mapDispatchToProps = {
     checkIfDataIsEntered: checkIfDataIsEnteredAction,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeaderContainer);

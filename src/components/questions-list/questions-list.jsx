@@ -8,9 +8,7 @@ import {
     Typography,
     makeStyles,
 } from "@material-ui/core";
-import {
-    useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import withTestService from "../hoc/with-test-service";
 import QuestionsListItem from "../questions-list-item/questions-list-item";
 import {
@@ -42,14 +40,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const renderQuestionsListItems = (questions, answers) => questions.map((item) => {
-    const { id } = item;
-    const questionAnswer = answers.find((answer) => answer.id === id);
-    return <QuestionsListItem key={id} questionAnswer={questionAnswer} {...item} />;
+const renderQuestionsListItems = (questionsList) => questionsList.map((item) => {
+    const { id, userAnswer } = item;
+    // const questionAnswer = item.userAnswer.find((answer) => answer.id === id);
+    return <QuestionsListItem key={id} questionAnswer={userAnswer} {...item} />;
 });
 
 const showResultPage = (
-    isTestDone,
     allowShowAnswers,
     history,
     openModalWindow,
@@ -67,11 +64,9 @@ const showResultPage = (
 
 const QuestionsList = ({
     fetchQuestions,
-    questions,
-    answers,
+    questionsWithUserAnswer,
     loading,
     error,
-    isTestDone,
     allowShowAnswers,
     openModalWindow,
     closeModalWindow,
@@ -97,7 +92,7 @@ const QuestionsList = ({
                 Дайте ответы на вопросы
             </Typography>
             <form className="questions">
-                {renderQuestionsListItems(questions, answers)}
+                {renderQuestionsListItems(questionsWithUserAnswer)}
                 <ModalWindow
                     isModalWindowOpen={isModalWindowOpen}
                     allowShowAnswers={allowShowAnswers}
@@ -106,7 +101,6 @@ const QuestionsList = ({
                 />
                 <Button
                     onClick={() => showResultPage(
-                        isTestDone,
                         allowShowAnswers,
                         history,
                         openModalWindow,
@@ -126,15 +120,14 @@ const QuestionsList = ({
 
 const mapStateToProps = ({
     isTestDone,
-    questionsList: { questions, loading, error },
-    answersList: { answers, correctAnswers },
+    questionsWithUserAnswer,
+    loading,
+    error,
     isModalWindowOpen,
     isFieldsFilled,
 }) => ({
     isTestDone,
-    questions,
-    answers,
-    correctAnswers,
+    questionsWithUserAnswer,
     loading,
     error,
     isModalWindowOpen,

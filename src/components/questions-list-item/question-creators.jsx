@@ -23,7 +23,7 @@ const createStringQuestion = (
         <FormControl className={classes.formControl} fullWidth variant="outlined">
             <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
             <OutlinedInput
-                value={questionAnswer ? questionAnswer.answer : ""}
+                value={questionAnswer || ""}
                 name={`question-${id}`}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
@@ -47,7 +47,7 @@ const createRadioQuestion = (
             <RadioGroup
                 aria-label="gender"
                 name={`question-${id}`}
-                value={questionAnswer ? parseInt(questionAnswer.answer, 10) : ""}
+                value={parseInt(questionAnswer, 10) || ""}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
                     checkIfDataIsEntered();
@@ -83,7 +83,7 @@ const createCheckboxQuestion = (
                         control={(
                             <Checkbox
                                 checked={
-                                    questionAnswer.answer.indexOf(option.id.toString()) > -1
+                                    questionAnswer.indexOf(option.id.toString()) > -1
                                 }
                                 color="primary"
                                 onChange={(e) => {
@@ -114,7 +114,7 @@ const createSelectQuestion = (
             <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
             <Select
                 native
-                value={questionAnswer ? questionAnswer.answer : ""}
+                value={questionAnswer || ""}
                 name={`question-${id}`}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);

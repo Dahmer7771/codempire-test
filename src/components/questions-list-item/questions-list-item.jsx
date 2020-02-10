@@ -78,7 +78,6 @@ const QuestionsListItem = (props) => {
         ...questionInfo
     } = props;
     const classes = useStyles();
-
     return createQuestionOfGivenType(
         type,
         questionInfo,

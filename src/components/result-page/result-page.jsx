@@ -54,8 +54,7 @@ const renderRightAnswers = (questions, classes) => (
 );
 
 const ResultPage = ({
-    questions,
-    answers,
+    questionsWithUserAnswer,
     correctAnswers,
     countResults,
     isTestDone,
@@ -65,7 +64,7 @@ const ResultPage = ({
     }, [countResults]);
 
     const classes = useStyles();
-
+    console.log(correctAnswers);
     if (!isTestDone) return <Redirect to="/" />;
 
     return (
@@ -74,20 +73,19 @@ const ResultPage = ({
                 Результат
             </Typography>
             <Typography className={classes.result} variant="subtitle1">
-                {`Вы ответили правильно на ${correctAnswers} вопросов из ${answers.length}`}
+                {`Вы ответили правильно на ${correctAnswers} вопросов из ${questionsWithUserAnswer.length}`}
             </Typography>
-            {renderRightAnswers(questions, classes)}
+            {renderRightAnswers(questionsWithUserAnswer, classes)}
         </Container>
     );
 };
 
 const mapStateToProps = ({
-    questionsList: { questions },
-    answersList: { answers, correctAnswers },
+    questionsWithUserAnswer,
+    correctAnswers,
     isTestDone,
 }) => ({
-    questions,
-    answers,
+    questionsWithUserAnswer,
     correctAnswers,
     isTestDone,
 });

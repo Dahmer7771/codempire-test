@@ -12,11 +12,6 @@ const questionsError = (error) => ({
     payload: error,
 });
 
-const initAnswersList = (answers) => ({
-    type: "INIT_ANSWERS_LIST",
-    payload: answers,
-});
-
 const updateAnswersList = (questionId, value, answerType = "single") => ({
     type: "UPDATE_ANSWERS_LIST",
     payload: {
@@ -50,13 +45,29 @@ const fetchQuestions = (testService) => () => (dispatch) => {
     dispatch(questionsRequest());
     testService.getQuestionsList()
         .then((data) => {
-            const answersListTemplate = JSON.parse(sessionStorage.getItem("CODEMPIRE_USER_ANSWERS")) || data.map((item) => ({
-                id: item.id,
-                answer: "",
-            }));
-            sessionStorage.setItem("CODEMPIRE_USER_ANSWERS", JSON.stringify(answersListTemplate));
-            dispatch(initAnswersList(answersListTemplate));
-            dispatch(questionsLoad(data));
+            let questionsWithUserAnswers;
+            if (sessionStorage.CODEMPIRE_USER_ANSWERS) {
+                const sessionData = JSON.parse(sessionStorage.getItem("CODEMPIRE_USER_ANSWERS"));
+
+                questionsWithUserAnswers = data.map((item) => ({
+                    ...item,
+                    userAnswer: sessionData.find(({ id }) => id === item.id).userAnswer,
+                }));
+            } else {
+                questionsWithUserAnswers = data.map((item) => ({
+                    ...item,
+                    userAnswer: "",
+                }));
+
+                const userAnswers = questionsWithUserAnswers.map(({ id, userAnswer }) => ({
+                    id,
+                    userAnswer,
+                }));
+
+                sessionStorage.setItem("CODEMPIRE_USER_ANSWERS", JSON.stringify(userAnswers));
+            }
+
+            dispatch(questionsLoad(questionsWithUserAnswers));
         })
         .catch((error) => questionsError(error));
 };
