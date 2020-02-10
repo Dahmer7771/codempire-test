@@ -13,8 +13,7 @@ import {
 import React from "react";
 
 const createStringQuestion = (
-    { id, question },
-    questionAnswer,
+    { id, question, userAnswer },
     updateAnswersList,
     classes,
     checkIfDataIsEntered,
@@ -23,7 +22,7 @@ const createStringQuestion = (
         <FormControl className={classes.formControl} fullWidth variant="outlined">
             <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
             <OutlinedInput
-                value={questionAnswer || ""}
+                value={userAnswer || ""}
                 name={`question-${id}`}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
@@ -35,8 +34,9 @@ const createStringQuestion = (
 );
 
 const createRadioQuestion = (
-    { id, question, answerOptions },
-    questionAnswer,
+    {
+        id, question, answerOptions, userAnswer,
+    },
     updateAnswersList,
     classes,
     checkIfDataIsEntered,
@@ -47,7 +47,7 @@ const createRadioQuestion = (
             <RadioGroup
                 aria-label="gender"
                 name={`question-${id}`}
-                value={questionAnswer || ""}
+                value={userAnswer || ""}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
                     checkIfDataIsEntered();
@@ -67,8 +67,9 @@ const createRadioQuestion = (
 );
 
 const createCheckboxQuestion = (
-    { id, question, answerOptions },
-    questionAnswer,
+    {
+        id, question, answerOptions, userAnswer,
+    },
     updateAnswersList,
     classes,
     checkIfDataIsEntered,
@@ -83,7 +84,7 @@ const createCheckboxQuestion = (
                         control={(
                             <Checkbox
                                 checked={
-                                    questionAnswer.includes(option)
+                                    userAnswer.includes(option)
                                 }
                                 color="primary"
                                 onChange={(e) => {
@@ -103,8 +104,9 @@ const createCheckboxQuestion = (
 );
 
 const createSelectQuestion = (
-    { id, question, answerOptions },
-    questionAnswer,
+    {
+        id, question, answerOptions, userAnswer,
+    },
     updateAnswersList,
     classes,
     checkIfDataIsEntered,
@@ -114,7 +116,7 @@ const createSelectQuestion = (
             <FormLabel className={classes.formLabel} component="legend">{question}</FormLabel>
             <Select
                 native
-                value={questionAnswer || ""}
+                value={userAnswer || ""}
                 name={`question-${id}`}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);

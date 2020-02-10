@@ -72,7 +72,6 @@ const createQuestionOfGivenType = (
 const QuestionsListItem = (props) => {
     const {
         type,
-        questionAnswer,
         updateAnswersList,
         checkIfDataIsEntered,
         ...questionInfo
@@ -81,7 +80,6 @@ const QuestionsListItem = (props) => {
     return createQuestionOfGivenType(
         type,
         questionInfo,
-        questionAnswer,
         updateAnswersList,
         classes,
         checkIfDataIsEntered,

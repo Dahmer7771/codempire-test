@@ -86,7 +86,7 @@ const clearInputs = ({ questionsWithUserAnswer }) => {
         userAnswer: "",
     }));
 
-    const userAnswers = questionsWithUserAnswer.map(({ id, userAnswer }) => ({
+    const userAnswers = clearedUserAnswers.map(({ id, userAnswer }) => ({
         id,
         userAnswer,
     }));

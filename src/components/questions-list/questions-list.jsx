@@ -41,9 +41,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const renderQuestionsListItems = (questionsList) => questionsList.map((item) => {
-    const { id, userAnswer } = item;
-    // const questionAnswer = item.userAnswer.find((answer) => answer.id === id);
-    return <QuestionsListItem key={id} questionAnswer={userAnswer} {...item} />;
+    const { id } = item;
+    return <QuestionsListItem key={id} {...item} />;
 });
 
 const showResultPage = (
@@ -51,10 +50,7 @@ const showResultPage = (
     history,
     openModalWindow,
     isFieldsFilled,
-    checkIfDataIsEntered,
 ) => {
-    checkIfDataIsEntered();
-    console.log();
     if (isFieldsFilled) {
         allowShowAnswers(true);
         history.push("/result");
@@ -73,7 +69,6 @@ const QuestionsList = ({
     closeModalWindow,
     isModalWindowOpen,
     isFieldsFilled,
-    checkIfDataIsEntered,
 }) => {
     const classes = useStyles();
     const history = useHistory();
@@ -106,7 +101,6 @@ const QuestionsList = ({
                         history,
                         openModalWindow,
                         isFieldsFilled,
-                        checkIfDataIsEntered,
                     )}
                     className={classes.root}
                     variant="contained"
