@@ -54,6 +54,7 @@ const showResultPage = (
     checkIfDataIsEntered,
 ) => {
     checkIfDataIsEntered();
+    console.log();
     if (isFieldsFilled) {
         allowShowAnswers(true);
         history.push("/result");

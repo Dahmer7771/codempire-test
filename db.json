@@ -10,93 +10,29 @@
       "id": 2,
       "type": "radio",
       "question": "Что обозначает формула H2O?",
-      "answerOptions": [
-        {
-          "id": 1,
-          "value": "Гелий"
-        },
-        {
-          "id": 2,
-          "value": "Кислород"
-        },
-        {
-          "id": 3,
-          "value": "Воду"
-        },
-        {
-          "id": 4,
-          "value": "Аммиак"
-        }
-      ],
-      "answer": 3
+      "answerOptions": ["Аммиак", "Гелий", "Воду", "Кислород"],
+      "answer": "Воду"
     },
     {
       "id": 3,
       "type": "radio",
       "question": "Сколько океанов на нашей планете?",
-      "answerOptions": [
-        {
-          "id": 1,
-          "value": "3"
-        },
-        {
-          "id": 2,
-          "value": "4"
-        },
-        {
-          "id": 3,
-          "value": "5"
-        },
-        {
-          "id": 4,
-          "value": "6"
-        }
-      ],
-      "answer": 3
+      "answerOptions": ["3", "4", "5", "6"],
+      "answer": "5"
     },
     {
       "id": 4,
       "type": "checkbox",
       "question": "Какие две самые длинные реки в мире?",
-      "answerOptions": [
-        {
-          "id": 1,
-          "value": "Амазонка"
-        },
-        {
-          "id": 2,
-          "value": "Миссисипи"
-        },
-        {
-          "id": 3,
-          "value": "Янцзы"
-        },
-        {
-          "id": 4,
-          "value": "Нил"
-        }
-      ],
-      "answer": [1, 4]
+      "answerOptions": ["Амазонка", "Миссисипи", "Янцзы", "Нил"],
+      "answer": ["Амазонка", "Нил"]
     },
     {
       "id": 5,
       "type": "select",
       "question": "Какое число обозначается римскими цифрами LXXVII",
-      "answerOptions": [
-        {
-          "id": 1,
-          "value": "127"
-        },
-        {
-          "id": 2,
-          "value": "97"
-        },
-        {
-          "id": 3,
-          "value": "77"
-        }
-      ],
-      "answer": 3
+      "answerOptions": ["127", "97", "77"],
+      "answer": "77"
     }
   ]
 }

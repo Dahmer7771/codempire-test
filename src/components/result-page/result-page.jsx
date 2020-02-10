@@ -64,7 +64,6 @@ const ResultPage = ({
     }, [countResults]);
 
     const classes = useStyles();
-    console.log(correctAnswers);
     if (!isTestDone) return <Redirect to="/" />;
 
     return (

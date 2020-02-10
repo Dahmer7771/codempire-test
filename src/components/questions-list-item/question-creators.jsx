@@ -47,7 +47,7 @@ const createRadioQuestion = (
             <RadioGroup
                 aria-label="gender"
                 name={`question-${id}`}
-                value={parseInt(questionAnswer, 10) || ""}
+                value={questionAnswer || ""}
                 onChange={(e) => {
                     updateAnswersList(id, e.target.value);
                     checkIfDataIsEntered();
@@ -55,10 +55,10 @@ const createRadioQuestion = (
             >
                 {answerOptions.map((option) => (
                     <FormControlLabel
-                        key={option.id}
-                        value={option.id}
+                        key={option}
+                        value={option}
                         control={<Radio color="primary" />}
-                        label={option.value}
+                        label={option}
                     />
                 ))}
             </RadioGroup>
@@ -79,21 +79,21 @@ const createCheckboxQuestion = (
             <FormGroup>
                 {answerOptions.map((option) => (
                     <FormControlLabel
-                        key={option.id}
+                        key={option}
                         control={(
                             <Checkbox
                                 checked={
-                                    questionAnswer.indexOf(option.id.toString()) > -1
+                                    questionAnswer.includes(option)
                                 }
                                 color="primary"
                                 onChange={(e) => {
-                                    updateAnswersList(id, e.target.value, "multi");
+                                    updateAnswersList(id, e.target.value);
                                     checkIfDataIsEntered();
                                 }}
-                                value={option.id}
+                                value={option}
                             />
                         )}
-                        label={option.value}
+                        label={option}
                     />
                 ))}
             </FormGroup>
@@ -125,8 +125,8 @@ const createSelectQuestion = (
                         Select
                 </option>
                 {answerOptions.map((option) => (
-                    <option key={option.id} value={option.id}>
-                        {option.value}
+                    <option key={option} value={option}>
+                        {option}
                     </option>
                 ))}
             </Select>

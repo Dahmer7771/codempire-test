@@ -1,55 +1,59 @@
 const checkIfDataIsEntered = ({ questionsWithUserAnswer }) => {
     if (questionsWithUserAnswer.length === 0) return false;
-    const emptyFields = questionsWithUserAnswer.filter(({ userAnswer }) => {
-        if (Array.isArray(userAnswer) && userAnswer.length === 0) return true;
+
+    const emptyFields = questionsWithUserAnswer.some(({ userAnswer }) => {
+        if (Array.isArray(userAnswer)) return userAnswer.length === 0;
         return userAnswer === "";
     });
-    return !emptyFields.length;
+
+    return !emptyFields;
 };
 
 const updateAnswersList = (state, action) => {
-    console.log("UPDATE");
+    const { questionsWithUserAnswer } = state;
+
     const {
         questionId,
         value,
-        answerType,
     } = action.payload;
-    const currentAnswer = state.questionsWithUserAnswer.find(({ id }) => id === questionId);
-    const idx = state.questionsWithUserAnswer.indexOf(currentAnswer);
+
+    const question = questionsWithUserAnswer.find(({ id }) => id === questionId);
+    const index = questionsWithUserAnswer.indexOf(question);
     let newValue = value;
 
-    if (answerType === "multi") {
-        const currentAnswerIndex = currentAnswer.userAnswer.indexOf(value);
+    if (Array.isArray(question.answer)) {
+        const currentAnswerIndex = question.userAnswer.indexOf(value);
+
         if (currentAnswerIndex > -1) {
             newValue = [
-                ...currentAnswer.userAnswer.slice(0, currentAnswerIndex),
-                ...currentAnswer.userAnswer.slice(currentAnswerIndex + 1),
+                ...question.userAnswer.slice(0, currentAnswerIndex),
+                ...question.userAnswer.slice(currentAnswerIndex + 1),
             ];
         } else {
             newValue = [
-                ...currentAnswer.userAnswer,
+                ...question.userAnswer,
                 value,
             ];
         }
     }
 
-    const questionsWithUserAnswer = [
-        ...state.questionsWithUserAnswer.slice(0, idx),
+    const questionsList = [
+        ...state.questionsWithUserAnswer.slice(0, index),
         {
-            ...state.questionsWithUserAnswer[idx],
+            ...state.questionsWithUserAnswer[index],
             userAnswer: newValue,
         },
-        ...state.questionsWithUserAnswer.slice(idx + 1),
+        ...state.questionsWithUserAnswer.slice(index + 1),
     ];
 
-    const userAnswers = questionsWithUserAnswer.map(({ id, userAnswer }) => ({
+    const sessionUserAnswers = questionsList.map(({ id, userAnswer }) => ({
         id,
         userAnswer,
     }));
 
-    sessionStorage.setItem("CODEMPIRE_USER_ANSWERS", JSON.stringify(userAnswers));
+    sessionStorage.setItem("CODEMPIRE_USER_ANSWERS", JSON.stringify(sessionUserAnswers));
 
-    return questionsWithUserAnswer;
+    return questionsList;
 };
 
 const compareAnswers = (type, rightAnswer, userAnswer) => {
@@ -60,38 +64,29 @@ const compareAnswers = (type, rightAnswer, userAnswer) => {
         return rightAnswer.toLowerCase() === userAnswer.toLowerCase();
     case "radio":
     case "select":
-        return parseInt(rightAnswer, 10) === parseInt(userAnswer, 10);
+        return rightAnswer === userAnswer;
     case "checkbox":
         if (rightAnswer.length !== userAnswer.length) return false;
-
-        let isRight = true;
-        rightAnswer.forEach((answersItem) => {
-            if (userAnswer.indexOf(answersItem.toString()) === -1) isRight = false;
-        });
-
-        return isRight;
+        return rightAnswer.every((answersItem) => userAnswer.includes(answersItem));
     default:
         return false;
     }
 };
 
-const countResults = (state) => {
-    let correctAnswersCount = 0;
-    state.questionsWithUserAnswer.forEach(({ type, answer, userAnswer }) => {
-        const isEqual = compareAnswers(type, answer, userAnswer);
-        if (isEqual) correctAnswersCount++;
-    });
+const countResults = ({ questionsWithUserAnswer }) => {
+    const rightAnswers = questionsWithUserAnswer
+        .filter(({ type, answer, userAnswer }) => compareAnswers(type, answer, userAnswer));
 
-    return correctAnswersCount;
+    return rightAnswers.length;
 };
 
-const clearInputs = (state) => {
-    const clearedUserAnswers = state.questionsWithUserAnswer.map((answersListItem) => ({
+const clearInputs = ({ questionsWithUserAnswer }) => {
+    const clearedUserAnswers = questionsWithUserAnswer.map((answersListItem) => ({
         ...answersListItem,
         userAnswer: "",
     }));
 
-    const userAnswers = state.questionsWithUserAnswer.map(({ id, userAnswer }) => ({
+    const userAnswers = questionsWithUserAnswer.map(({ id, userAnswer }) => ({
         id,
         userAnswer,
     }));
